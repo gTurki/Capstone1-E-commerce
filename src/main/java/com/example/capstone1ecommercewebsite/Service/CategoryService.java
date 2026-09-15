@@ -4,6 +4,7 @@ import com.example.capstone1ecommercewebsite.Model.Category;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CategoryService {
@@ -18,6 +19,10 @@ public class CategoryService {
         categories.add(category);
     }
 
+    public void addCategories(List<Category> newCategories) {
+        categories.addAll(newCategories);
+    }
+
     public boolean updateCategory(String id, Category category) {
         for (int i = 0; i < categories.size(); i++) {
             if (categories.get(i).getId().equalsIgnoreCase(id)) {
@@ -29,9 +34,9 @@ public class CategoryService {
     }
 
     public boolean deleteCategory(String id) {
-        for (Category c : categories) {
-            if (c.getId().equalsIgnoreCase(id)) {
-                categories.remove(c);
+        for (int i = 0; i < categories.size(); i++) {
+            if (categories.get(i).getId().equalsIgnoreCase(id)) {
+                categories.remove(i);
                 return true;
             }
         }

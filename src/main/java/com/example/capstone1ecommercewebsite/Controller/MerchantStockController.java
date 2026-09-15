@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/merchantstock")
 @RequiredArgsConstructor
@@ -29,6 +31,19 @@ public class MerchantStockController {
         }
         merchantStockService.addMerchantStock(merchantStock);
         return ResponseEntity.status(200).body(new ApiResponse("Merchant Stock added successfully"));
+    }
+
+    @PostMapping("/add/multi")
+    public ResponseEntity<?> addMerchantStocks(@RequestBody List<@Valid MerchantStock> merchantStocks, Errors errors) {
+        if (errors.hasErrors()) {
+            String message = errors.getFieldError().getDefaultMessage();
+            return ResponseEntity.status(400).body(message);
+        }
+
+        merchantStockService.addMerchantStocks(merchantStocks);
+
+        return ResponseEntity.status(200)
+                .body(new ApiResponse("Merchant Stocks added successfully"));
     }
 
     @PutMapping("/update/{id}")

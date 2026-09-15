@@ -4,6 +4,7 @@ import com.example.capstone1ecommercewebsite.Model.MerchantStock;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class MerchantStockService {
@@ -18,6 +19,10 @@ public class MerchantStockService {
         merchantStocks.add(merchantStock);
     }
 
+    public void addMerchantStocks(List<MerchantStock> newMerchantStocks) {
+        merchantStocks.addAll(newMerchantStocks);
+    }
+
     public boolean updateMerchantStock(String id, MerchantStock merchantStock) {
         for (int i = 0; i < merchantStocks.size(); i++) {
             if (merchantStocks.get(i).getId().equalsIgnoreCase(id)) {
@@ -29,13 +34,12 @@ public class MerchantStockService {
     }
 
     public boolean deleteMerchantStock(String id) {
-        for (MerchantStock m : merchantStocks) {
-            if (m.getId().equalsIgnoreCase(id)) {
-                merchantStocks.remove(m);
+        for (int i = 0; i < merchantStocks.size(); i++) {
+            if (merchantStocks.get(i).getId().equalsIgnoreCase(id)) {
+                merchantStocks.remove(i);
                 return true;
             }
         }
         return false;
     }
-
 }

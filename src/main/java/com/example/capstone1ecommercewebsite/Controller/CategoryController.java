@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/category")
 @RequiredArgsConstructor
@@ -29,6 +31,19 @@ public class CategoryController {
         }
         categoryService.addCategory(category);
         return ResponseEntity.status(200).body(new ApiResponse("Category added successfully"));
+    }
+
+    @PostMapping("/add/multi")
+    public ResponseEntity<?> addCategories(@RequestBody List<@Valid Category> categories, Errors errors) {
+        if (errors.hasErrors()) {
+            String message = errors.getFieldError().getDefaultMessage();
+            return ResponseEntity.status(400).body(message);
+        }
+
+        categoryService.addCategories(categories);
+
+        return ResponseEntity.status(200)
+                .body(new ApiResponse("Categories added successfully"));
     }
 
     @PutMapping("/update/{id}")

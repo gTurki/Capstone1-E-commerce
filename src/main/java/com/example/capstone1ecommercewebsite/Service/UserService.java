@@ -4,6 +4,7 @@ import com.example.capstone1ecommercewebsite.Model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -18,6 +19,10 @@ public class UserService {
         users.add(user);
     }
 
+    public void addUsers(List<User> newUsers) {
+        users.addAll(newUsers);
+    }
+
     public boolean updateUser(String id, User user) {
         for (int i = 0; i < users.size(); i++) {
             if (users.get(i).getId().equalsIgnoreCase(id)) {
@@ -29,9 +34,9 @@ public class UserService {
     }
 
     public boolean deleteUser(String id) {
-        for (User u : users) {
-            if (u.getId().equalsIgnoreCase(id)) {
-                users.remove(u);
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getId().equalsIgnoreCase(id)) {
+                users.remove(i);
                 return true;
             }
         }

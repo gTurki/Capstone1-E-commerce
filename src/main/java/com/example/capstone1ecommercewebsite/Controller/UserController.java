@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
@@ -29,6 +31,19 @@ public class UserController {
         }
         userService.addUser(user);
         return ResponseEntity.status(200).body(new ApiResponse("User added successfully"));
+    }
+
+    @PostMapping("/add/multi")
+    public ResponseEntity<?> addUsers(@RequestBody List<@Valid User> users, Errors errors) {
+        if (errors.hasErrors()) {
+            String message = errors.getFieldError().getDefaultMessage();
+            return ResponseEntity.status(400).body(message);
+        }
+
+        userService.addUsers(users);
+
+        return ResponseEntity.status(200)
+                .body(new ApiResponse("Users added successfully"));
     }
 
     @PutMapping("/update/{id}")

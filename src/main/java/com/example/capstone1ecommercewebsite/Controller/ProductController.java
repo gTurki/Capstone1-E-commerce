@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/product")
 @RequiredArgsConstructor
@@ -29,6 +31,19 @@ public class ProductController {
         }
         productService.addProduct(product);
         return ResponseEntity.status(200).body(new ApiResponse("Product added successfully"));
+    }
+
+    @PostMapping("/add/multi")
+    public ResponseEntity<?> addProducts(@RequestBody List<@Valid Product> products, Errors errors) {
+        if (errors.hasErrors()) {
+            String message = errors.getFieldError().getDefaultMessage();
+            return ResponseEntity.status(400).body(message);
+        }
+
+        productService.addProducts(products);
+
+        return ResponseEntity.status(200)
+                .body(new ApiResponse("Products added successfully"));
     }
 
     @PutMapping("/update/{id}")
