@@ -11,6 +11,7 @@ public class MerchantStock {
     @NotEmpty(message = "ID must not be empty")
     @NotBlank(message = "ID must not be blank")
     @Size(min = 3, max = 7, message = "ID must be between 3-7")
+    @Pattern(regexp = "^(ms\\d+)+$", message = "Merchant Stock ID must start with ms followed by digit")
     private String id;
     @NotEmpty(message = "ProductID must not be empty")
     @NotBlank(message = "ProductID must not be blank")

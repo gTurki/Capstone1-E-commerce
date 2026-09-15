@@ -11,6 +11,7 @@ public class User {
     @NotEmpty(message = "ID must not be empty")
     @NotBlank(message = "ID must not be blank")
     @Size(min = 3, max = 7, message = "ID must be between 3-7")
+    @Pattern(regexp = "^(u\\d+)+$", message = "User ID must start with u followed by digit")
     private String id;
     @NotEmpty(message = "Username must not be empty")
     @NotBlank(message = "Username must not be blank")
@@ -22,8 +23,8 @@ public class User {
     @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*\\d).+$",
             message = "Password must contain letters and numbers")
     private String password;
-    @NotEmpty(message = "ID must not be empty")
-    @NotBlank(message = "ID must not be blank")
+    @NotEmpty(message = "Email must not be empty")
+    @NotBlank(message = "Email must not be blank")
     @Email(message = "Email is not in a valid format")
     private String email;
     @NotEmpty(message = "Role must not be empty")
