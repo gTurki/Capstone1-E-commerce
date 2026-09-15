@@ -11,6 +11,7 @@ public class Product {
     @NotEmpty(message = "ID must not be empty")
     @NotBlank(message = "ID must not be blank")
     @Size(min = 3, max = 7, message = "ID must be between 3-7")
+    @Pattern(regexp = "^(p\\d+)+$", message = "Product ID must start with p followed by digit")
     private String id;
     @NotEmpty(message = "Name must not be empty")
     @NotBlank(message = "Name must not be blank")
